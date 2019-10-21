@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       ## to dos ##
       get '/toDos', to: 'to_do#index'
+      post '/toDos', to: 'to_do#create'
 
     end
   end
