@@ -8,7 +8,11 @@ class Api::V1::ToDoController < ApplicationController
 
   def create
     @to_do = ToDo.create(to_do_params)
-    render json: @to_do
+    if @to_do.valid?
+      render json: { newToDo: @to_do}
+    else
+      render json: { error: @to_do.errors.full_messages[0]}
+    end
   end
 
 

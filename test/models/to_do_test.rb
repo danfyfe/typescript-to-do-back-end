@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ToDoTest < ActiveSupport::TestCase
-
+  
     test 'can create a to do' do
       to_do = ToDo.new(title: 'To Do', completed: false)
       assert to_do.save
@@ -14,6 +14,7 @@ class ToDoTest < ActiveSupport::TestCase
       assert_not to_do_2.save
     end
 
+    # this test might be silly - it basically just tests active record?
     test 'can update status of to do' do
       to_do = ToDo.create(title:'To Do', completed: false)
       assert to_do.update(completed: true)
