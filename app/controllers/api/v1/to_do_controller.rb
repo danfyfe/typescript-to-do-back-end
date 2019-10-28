@@ -1,5 +1,8 @@
 class Api::V1::ToDoController < ApplicationController
 
+  full_sanitizer = Rails::Html::FullSanitizer.new
+
+
   def index
     @to_dos = ToDo.all
 
@@ -10,11 +13,27 @@ class Api::V1::ToDoController < ApplicationController
     @to_do = ToDo.create(to_do_params)
 
     if @to_do.valid?
-      render json: { newToDo: @to_do}
+      render json: { newToDo: @to_do }
     else
-      render json: { error: @to_do.errors.full_messages[0]}
+      render json: { error: @to_do.errors.full_messages[0] }
     end
-    
+
+  end
+
+  def update
+    @to_do = ToDo.find(params[:id])
+    @to_do.update(to_do_params)
+
+    render json: { updatedToDo: @to_do}
+
+  end
+
+  def delete
+    @to_do = ToDo.find(params[:id])
+    @to_do.destroy
+    @to_dos = ToDo.all
+    # byebug
+    render json: { toDos: @to_dos }
   end
 
 
