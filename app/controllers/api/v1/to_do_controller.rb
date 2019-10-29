@@ -1,7 +1,6 @@
 class Api::V1::ToDoController < ApplicationController
 
 
-
   def index
     @to_dos = ToDo.all
 
