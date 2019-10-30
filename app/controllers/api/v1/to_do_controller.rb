@@ -9,12 +9,14 @@ class Api::V1::ToDoController < ApplicationController
 
   def create
     full_sanitizer = Rails::Html::FullSanitizer.new
-    # byebug
+    title = full_sanitizer.sanitize(to_do_params['title'])
 
-    @to_do = ToDo.create(to_do_params)
+    completed = to_do_params['completed']
+
+    @to_do = ToDo.create(title: title, completed: completed)
 
     if @to_do.valid?
-      render json: { newToDo: @to_do }
+      render json: { newToDo: ToDoSerializer.new(@to_do) }
     else
       render json: { error: @to_do.errors.full_messages[0] }
     end
